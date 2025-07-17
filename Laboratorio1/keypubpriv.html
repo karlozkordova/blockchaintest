@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Laboratorio: Identidad Blockchain</title>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; background: #f9f9f9; }
+    h2 { color: #2c3e50; }
+    textarea, input { width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 15px; }
+    button { padding: 10px 20px; margin-bottom: 20px; cursor: pointer; }
+    .output { background: #eef; padding: 10px; border-radius: 5px; margin-top: 10px; white-space: pre-wrap; min-height: 40px; }
+  </style>
+</head>
+<body>
+  <h2>🔐 Laboratorio: Identidad Digital con Claves en Blockchain</h2>
+
+  <button onclick="generarIdentidad()">1. Generar identidad (clave privada, pública y dirección)</button>
+  <div class="output">
+    <strong>Dirección:</strong> <div id="direccion"></div>
+    <strong>Llave pública:</strong> <div id="pubkey"></div>
+    <strong>Llave privada:</strong> <div id="privkey"></div>
+  </div>
+
+  <h3>✍️ Firmar un mensaje</h3>
+  <textarea id="mensaje" rows="4">Ejemplo: Yo, estudiante Y, envío 3 tokens al prof X.</textarea>
+  <button onclick="firmarMensaje()">2. Firmar con clave privada</button>
+  <div class="output">
+    <strong>Firma generada:</strong> <div id="firma"></div>
+  </div>
+
+  <h3>✅ Verificar firma</h3>
+  <button onclick="verificarFirma()">3. Verificar firma con clave pública</button>
+  <div class="output">
+    <strong>Dirección que firmó:</strong> <div id="verificado"></div>
+  </div>
+
+  <script>
+    let wallet;
+
+    function generarIdentidad() {
+      wallet = ethers.Wallet.createRandom();
+      document.getElementById("direccion").innerText = wallet.address; // Simula dirección blockchain (Ethereum)
+      document.getElementById("pubkey").innerText = wallet.publicKey;  // Simula clave pública para verificar (Ethereum)
+      document.getElementById("privkey").innerText = wallet.privateKey; // Simula clave privada para firmar (Ethereum)
+    }
+
+    async function firmarMensaje() {
+      if (!wallet) {
+        document.getElementById("firma").innerText = "⚠️ Primero debes generar una identidad.";
+        return;
+      }
+      const mensaje = document.getElementById("mensaje").value;
+      const firma = await wallet.signMessage(mensaje);
+      document.getElementById("firma").innerText = firma;
+    }
+
+    async function verificarFirma() {
+      const mensaje = document.getElementById("mensaje").value;
+      const firma = document.getElementById("firma").innerText;
+
+      if (!firma) {
+        document.getElementById("verificado").innerText = "⚠️ Primero debes firmar un mensaje.";
+        return;
+      }
+
+      try {
+        const direccionFirmante = await ethers.utils.verifyMessage(mensaje, firma);
+        const direccionOriginal = wallet?.address ?? "";
+        const verificacion = (direccionFirmante === direccionOriginal)
+          ? "✔️ Válido: la firma es auténtica"
+          : "❌ Inválido: la firma no corresponde";
+
+        document.getElementById("verificado").innerText =
+          `${direccionFirmante}\n${verificacion}`;
+      } catch (err) {
+        document.getElementById("verificado").innerText = "❌ Error al verificar la firma: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+Además de las pruebas en Python y la interfaz web, también puedes ejecutar cifrado directamente desde la terminal en Ubuntu.
+
+Este método es útil para entender cómo funcionan los algoritmos al nivel del sistema operativo y sin necesidad de escribir código adicional.
+
+Para estas pruebas usaremos a terminal de Linux 
+
+1. Instalar Dependencias
+
+Asegúrate de tener OpenSSL instalado. En la mayoría de las distribuciones Ubuntu ya viene por defecto, pero puedes instalarlo con:
+
+sudo apt update
+sudo apt install openssl -y
+
+2. Cifrado Simétrico con AES-256
+
+2.1 Crea un archivo de texto con el mensaje que deseas cifrar:
+
+echo "Este es un mensaje confidencial para la prueba de cifrado simétrico." > mensaje.txt
+
+
+2.2 Cifra el archivo usando AES-256-CBC
+
+openssl enc -aes-256-cbc -salt -in mensaje.txt -out mensaje_cifrado.bin
+
+***Te pedirá una contraseña que será la clave simétrica para cifrar y descifrar***
+
+2.3 Descifra el archivo
+
+openssl enc -aes-256-cbc -d -in mensaje_cifrado.bin -out mensaje_descifrado.txt
+
+2.4 Verifica que el contenido es igual al original:
+
+cat mensaje_descifrado.txt
+
+
+
