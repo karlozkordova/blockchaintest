@@ -101,3 +101,14 @@ Para evitar este ataque:
 Este laboratorio demuestra que **la seguridad en blockchain no depende solo de la criptografía o firmas digitales**, sino también de la **correcta implementación del código**. Una sola vulnerabilidad lógica puede causar pérdidas irreparables.
 
 ---
+
+## 📊Entregables:
+
+1. **Contrato inteligente vulnerable** implementado en Solidity (código fuente).
+2. **Contrato atacante** y evidencia de explotación de la vulnerabilidad.
+3. **Capturas de pruebas** en Remix mostrando el ataque y el efecto (retiro repetido de fondos).
+4. **Reporte técnico** en PDF que incluya:
+   - Explicación paso a paso del ataque.
+   - Análisis de por qué ocurre la vulnerabilidad.
+   - Propuesta de soluciones de mitigación (ej. checks-effects-interactions, reentrancyGuard).
+5. **Reflexión final:** qué riesgos reales representa esta vulnerabilidad en proyectos DeFi y qué aprendió el estudiante para prevenirla.
