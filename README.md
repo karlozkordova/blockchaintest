@@ -146,12 +146,43 @@ cd blockchain-security-labs
 
 ## 📊 Documentación de Resultados
 
-Cada laboratorio incluye una **plantilla de reporte** para que documentes:
+Por cada laboratorio existe una sección del entregable, acontinuación los apartados que deben contener la  **plantilla de reporte** para documentar:
 
-- Capturas de pantalla.
-- Hashes de transacciones exploradas.
-- Reflexiones sobre los conceptos de seguridad vistos.
-
+## Portada
+- **Estudiante:**  
+- **Laboratorio:** (Nombre y número)  
+- **Fecha de entrega:**  
+---
+## 1. Introducción
+Breve descripción del laboratorio y los objetivos específicos que se persiguen.
+---
+## 2. Procedimiento realizado
+- Herramientas y entornos utilizados (ej. Python, Remix, Sepolia, exploradores de bloques).  
+- Pasos seguidos durante el desarrollo del laboratorio.  
+- Configuraciones relevantes.  
+---
+## 3. Evidencias
+Incluya capturas de pantalla numeradas y explicadas, fragmentos de código relevante y resultados obtenidos.
+---
+## 4. Análisis y resultados
+- Interpretación técnica de los resultados obtenidos.  
+- Explicación de cómo se cumplen los objetivos del laboratorio.  
+- Comparación de comportamientos observados (ej. algoritmos, transacciones, ataques).  
+---
+## 5. Reflexión sobre seguridad
+- ¿Qué aporta este laboratorio a la comprensión de la seguridad en blockchain?  
+- Identificación de riesgos, buenas prácticas o mecanismos de mitigación.  
+- Conexión con casos reales o aplicaciones prácticas.  
+---
+## 6. Conclusiones
+Síntesis de aprendizajes clave y valoración personal del ejercicio.
+---
+## 7. Bibliografía / Referencias
+- Artículos o libros consultados.  
+- Enlaces relevantes (ej. exploradores de bloques, repositorio base).  
+---
+✅ **Formato de entrega**:  
+- Documento en **PDF** con la estructura anterior.  
 ---
 
 ## 🔒 Conclusión
