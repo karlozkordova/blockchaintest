@@ -114,3 +114,14 @@ Con esta PoC comprenderás:
 - Por qué ambos esquemas suelen **complementarse** (por ejemplo, simétrico para el canal y asimétrico para intercambiar la clave).  
 - Fundamentos aplicables a **blockchain**, como la firma de transacciones y la gestión de llaves.
 
+
+## 📊 Entregables:
+
+1. **Código fuente** (Python o similar) donde se implementen y prueben al menos dos algoritmos de hash y un esquema de firma digital.
+2. **Capturas de ejecución** que muestren la generación del hash, la firma digital y su verificación.
+3. **Reporte técnico** en PDF que incluya:
+  - Descripción de los algoritmos usados.
+  - Comparación de resultados (velocidad, tamaño de hash, facilidad de verificación).
+  - Análisis de cómo estas herramientas contribuyen a la seguridad en blockchain.
+4. **Reflexión final:** un apartado (½ a 1 página) donde el estudiante destaque la importancia de la criptografía en la integridad y autenticidad de transacciones.
+    
