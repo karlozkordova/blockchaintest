@@ -67,8 +67,8 @@ En esta sección **veremos una transacción real**, observaremos sus datos en un
 
 Al terminar la exploración se deberá:
 
-✅ **Capturas del explorador de bloques**  
-✅ Explicación por cada red los campos y su relación con la teoría  
+✅ **Registrar capturas del explorador de bloques**  
+✅ Explicación por cada red, los campos y su relación con la teoría  
 ✅ Reflexión sobre **qué asegura la inmutabilidad y autenticidad** de la transacción en ambas redes.
 ✅ Reflexión sobre **se pudieron evidenciar los crietrios de seguridad implícitos, ¿Cuáles?** de la transacción en ambas redes.
 
