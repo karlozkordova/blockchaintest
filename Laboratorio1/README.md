@@ -117,7 +117,7 @@ Con esta PoC comprenderás:
 
 ## 📊 Entregables:
 
-1. **Código fuente** (Python o similar) donde se implementen y prueben al menos dos algoritmos de hash y un esquema de firma digital.
+1. **Código fuente** (Python o similar) desarollo propio o pueden tomar como referencia el mismo del laboratorio, donde se prueben al menos dos algoritmos de hash y un esquema de firma digital.
 2. **Capturas de ejecución** que muestren la generación del hash, la firma digital y su verificación.
 3. **Reporte técnico** en PDF que incluya:
    - Descripción de los algoritmos usados.
