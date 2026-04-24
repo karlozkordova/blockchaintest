@@ -19,8 +19,8 @@ Ahora vamos a **crear y ejecutar una transacción propia**, desplegando un contr
 ### Paso 1.2 — Instalar y configurar MetaMask
 
 1. Descarga MetaMask desde **[https://metamask.io](https://metamask.io)** como extensión de Chrome o Firefox.
-2. Sigue el asistente para crear una nueva billetera.
-3. **IMPORTANTE:** Guarda tu frase semilla (seed phrase) en un lugar seguro. Nunca la compartas.  Clic en ≡ (tres líneas) — esquina superior derecha de MetaMask → Configuración -> Seguridad y Contraseña -> Gestionar la recuperación de la contraseña -> Revlar. Siga los pasos indicados.
+2. Sigua el asistente para crear una nueva billetera.
+3. **IMPORTANTE:** Guarda tu frase semilla (seed phrase) en un lugar seguro. Nunca la compartas.  Clic en ≡ (tres líneas) — esquina superior derecha de MetaMask → Configuración -> Seguridad y Contraseña -> Gestionar la recuperación de la contraseña -> Revelar. Siga los pasos indicados.
 4. Una vez instalado, haz clic en el icono de MetaMask → Clic en ≡ (tres líneas) — esquina superior derecha de MetaMask → Redes → **"Mostrar redes de prueba"** → activa la opción.
 
 
