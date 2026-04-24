@@ -25,8 +25,9 @@ En cada paso **relacionaremos conceptos teóricos de seguridad** como **inmutabi
    - Dirección del emisor y receptor.
    - Gas utilizado, estado y bloque.
 2. **Descripción detallada** de al menos 2 transacciones diferentes, explicando cada uno de sus campos y su relevancia en la seguridad.
-3. **Reporte técnico** en PDF que incluya:
+3. **Reporte técnico** en PDF que incluya: (además de los indicados en cada componente complementario)
    - Procedimiento para conectarse a la red de pruebas y usar Remix / explorador de bloques.
    - Análisis sobre la inmutabilidad y trazabilidad de las transacciones.
    - Relación entre los elementos técnicos observados y la seguridad de la red.
 4. **Reflexión final:** cómo la transparencia en blockchain cambia la confianza frente a sistemas financieros tradicionales.
+
