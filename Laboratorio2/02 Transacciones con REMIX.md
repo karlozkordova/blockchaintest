@@ -90,7 +90,7 @@ contract SimpleStorage {
 1. Verifica que en Deploy diga **"Sepolia (11155111) network"**.
 2. Haz clic en el botón azul **"Deploy"**
 3. MetaMask abrirá un popup mostrando **"Implementar un contrato"**:
-   - **Red:** Spolia.
+   - **Red:** Sepolia.
    - **Tarifa de red:**  en SepoliaETH (sin valor real)
 4. Haz clic en **"Confirmar"**.
 5. Espera ~15–30 segundos. En la consola aparecerá el bloque, hash y dirección del contrato.
