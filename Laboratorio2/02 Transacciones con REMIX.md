@@ -105,11 +105,55 @@ contract SimpleStorage {
 
 ### 🔹 4. Ejecutar una transacción al contrato
 
-1. En Remix, en el contrato desplegado, busca la función `set`.
-2. Introduce un valor (ejemplo `42`).
-3. Clic en **Transact**.
-4. MetaMask pedirá firmar → confirma.
-5. Abre MetaMask → historial → clic en la transacción → **ver en Sepolia Etherscan**.
+### Paso 4.1 — Llamar la función `set`
+
+1. En **Deployed Contracts** expande **SimpleStorage**.
+2. En **"Select a function to interact with..."** selecciona set uint256 (🟠 naranja).
+3. En el campo escribe **42**.
+4. Haz clic en **"Transact"**.
+5. MetaMask abrirá popup **"Solicitud de transacción"** en Sepolia → clic en **"Confirmar"**.
+6. En la consola aparecerá la transacción confirmada con bloque, hash y datos.
+
+> 💡 En data verás 0x60f...002a — el 2a al final es 42 en hexadecimal.
+
+---
+
+### Paso 4.2 — Verificar que el valor fue guardado
+
+1. En **"Select a function to interact with..."** selecciona **storedData** (🔵 azul).
+2. Haz clic en **"Call"**.
+3. Aparece el resultado debajo: **uint256: 42** ✅
+4. En la consola verás: [call] SimpleStorage.storedData() data: 0x2a1...afcd9 — sin generar transacción.
+
+> 💡 Call en lugar de Transact confirma que es una operación de solo lectura — no genera transacción, no gasta gas, no aparece en Etherscan.
+
+---
+
+### Paso 4.3 — Analizar la transacción en Etherscan
+
+1. Abre MetaMask → pestaña **Actividad**.
+2. Clic en la transacción más reciente → **"Ver en explorador de bloques"**.
+3. Se abrirá **Sepolia Etherscan** con el detalle completo de la transacción.
+
+---
+#### Campos a analizar en Etherscan:
+
+| Campo | Valor esperado | Significado en seguridad |
+|---|---|---|
+| **Transaction Hash** | `0x...` (64 hex) | Identificador único. Derivado del hash SHA-3 (Keccak-256) de todos los datos de la transacción. Inmutable. |
+| **Status** | ✅ Success | La EVM ejecutó la función sin revertir. |
+| **Block** | Número de bloque | En qué bloque quedó grabada. Cuantos más bloques encima, más irreversible. |
+| **From** | Tu dirección (0x...) | Autenticada por firma digital ECDSA. |
+| **To** | Dirección del contrato | El contrato con quien interactuaste. |
+| **Gas Used** | ~26,000 unidades | Costo computacional de la operación. |
+| **Gas Price** | En Gwei | Precio por unidad de gas que pagaste. |
+| **Input Data** | `0x60fe47b1...` | La función `set(42)` codificada en ABI hex. Si decodificas, verás el valor `42`. |
+
+> 🔐 **Análisis de seguridad del Input Data:**  
+> Los primeros 4 bytes (`0x60fe47b1`) son el **selector de función**: los 4 primeros bytes del hash Keccak-256 de la firma `set(uint256)`. Esto identifica qué función se llamó. Los siguientes 32 bytes contienen el valor `42` en hexadecimal: `0x000...002a`.
+
+---
+
 
 📌 **Conceptos de seguridad:**
 - **Dirección origen (From)** es tu cuenta → autenticada por firma digital.
@@ -122,11 +166,14 @@ contract SimpleStorage {
 
 ### 🔐 Qué estás aplicando en seguridad blockchain
 
-- **Criptografía asimétrica:** para firmar y autenticar.
-- **Hashing:** garantiza integridad de bloques y transacciones.
-- **Inmutabilidad:** la transacción queda grabada permanentemente.
-- **Anonimicidad:** no se expone tu identidad, solo dirección pública.
+- **Criptografía asimétrica:** : MetaMask firmó la transacción con tu clave privada. Etherscan muestra tu dirección pública como `From`. 
+- **Hashing:** : El Transaction Hash es el resultado de hashear todos los campos de la transacción. Cualquier cambio produce un hash diferente.
+- **Inmutabilidad:** : El valor `42` quedó escrito en Sepolia. No puede borrarse ni editarse sin un nuevo contrato.
+- **Pseudonimato:** no se expone tu identidad, solo dirección pública.
 - **Algoritmo de consenso:** asegura que la transacción es válida y única.
+- **Transparencia auditable** : Cualquier persona puede ver la transacción en Etherscan. La blockchain es un registro público y verificable.
+- **Gas / Anti-DoS** : Cada operación tiene costo. Esto impide que un atacante ejecute millones de transacciones gratis para saturar la red. 
+
 
 ---
 
