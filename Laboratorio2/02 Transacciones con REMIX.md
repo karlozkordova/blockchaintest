@@ -188,6 +188,7 @@ Cuando se finalice, documentar:
    - ¿Qué garantiza su **inmutabilidad**?
    - ¿Qué rol juegan **gas y consenso**?
    - ¿Cómo se mantiene el **pseudonimato**?
+   - ¿En qué se relaciona "Obtener ETH de prueba" contra una red real de producción?
 3. Conclusión sobre cómo la **teoría se ve reflejada en la práctica**.
 
 
