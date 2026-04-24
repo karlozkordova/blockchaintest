@@ -4,20 +4,49 @@ Ahora vamos a **crear y ejecutar una transacción propia**, desplegando un contr
 
 ---
 
-### 🛠️ 1. Preparación
+### 🔹 1. Preparación
 
-1. Abre [https://remix.ethereum.org](https://remix.ethereum.org)
-2. Instala MetaMask en tu navegador.
-3. Configura **Sepolia Testnet** en MetaMask.
-4. Consigue ETH de prueba desde un faucet:  
-   [https://sepoliafaucet.com/](https://sepoliafaucet.com/)
+### Paso 1.1 — Abrir Remix IDE
+
+1. Ve a **[https://remix.ethereum.org](https://remix.ethereum.org)** desde tu navegador.
+2. En el panel izquierdo, verán el explorador de archivos con algunos contratos de ejemplo. Puedes ignorarlos por ahora.
+3. Crea una nueva carpeta llamada **`Lab2`** y dentro crea el archivo **`SimpleStorage.sol`**.
+
+> 💡 **¿Por qué Remix?** Es un IDE en línea sin instalación. Incluye compilador de Solidity, debugger y conexión directa a MetaMask. Ideal para aprender sin configurar un entorno local.
 
 ---
 
+### Paso 1.2 — Instalar y configurar MetaMask
+
+1. Descarga MetaMask desde **[https://metamask.io](https://metamask.io)** como extensión de Chrome o Firefox.
+2. Sigue el asistente para crear una nueva billetera.
+3. **IMPORTANTE:** Guarda tu frase semilla (seed phrase) en un lugar seguro. Nunca la compartas.  Clic en ≡ (tres líneas) — esquina superior derecha de MetaMask → Configuración -> Seguridad y Contraseña -> Gestionar la recuperación de la contraseña -> Revlar. Siga los pasos indicados.
+4. Una vez instalado, haz clic en el icono de MetaMask → Clic en ≡ (tres líneas) — esquina superior derecha de MetaMask → Redes → **"Mostrar redes de prueba"** → activa la opción.
+
+
+> 🔐 **Concepto de seguridad:** La frase semilla es la raíz criptográfica de tu identidad en blockchain. Quien la posea controla todos tus fondos. En producción, se guarda en hardware wallets o gestores de claves seguros.
+
+---
+
+### Paso 1.3 — Obtener ETH de prueba (Faucet)
+
+Para pagar el gas de las transacciones necesitas ETH de prueba (sin valor real).
+
+1. Ve a **[https://sepolia-faucet.pk910.de/#/](https://sepolia-faucet.pk910.de/#/)** o **[https://sepoliafaucet.com](https://sepoliafaucet.com)** o **[https://faucet.sepolia.dev](https://faucet.sepolia.dev)**
+2. Copia tu dirección pública de MetaMask (0x...). En MetaMask haz clic en "Account 1" → se abre la pantalla "Direcciones" → copia la dirección de Ethereum (0x...) usando el ícono 📋 de la derecha.
+3. Pégala en el faucet y solicita ETH de prueba.
+4. Espera 1–2 minutos y verifica el saldo en MetaMask.
+
+> 💡 **Tip:** Si un faucet no funciona, prueba con **[https://www.alchemy.com/faucets/ethereum-sepolia](https://www.alchemy.com/faucets/ethereum-sepolia)**. Requiere cuenta gratuita en Alchemy.
+
+> 💡 Sepolia usa la misma dirección que Ethereum mainnet. No uses las direcciones de Bitcoin, Solana u otras redes que aparecen en esa pantalla.
+
+> 💡 Si un faucet no funciona, prueba con https://www.alchemy.com/faucets/ethereum-sepolia. Requiere cuenta gratuita en Alchemy. 
+---
 ### 🔹 2. Contrato inteligente simple
 
-En Remix crea un archivo **SimpleStorage.sol**:
-
+En Remix, dentro de `Lab2/SimpleStorage.sol`, escribe el siguiente código:
+ 
 ```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -35,19 +64,44 @@ contract SimpleStorage {
 
 ### 🔹 3. Compilar y desplegar
 
-- Ve a **Solidity Compiler** y compila con versión 0.8.x
-- Ve a **Deploy & Run Transactions**
-  - Environment → `Injected Web3` (MetaMask)
-  - Selecciona `SimpleStorage`
-  - Clic en **Deploy**
-- MetaMask solicitará firmar la transacción → confirma.
+### Paso 3.1 — Compilar el contrato
 
-📌 **Conceptos de seguridad aquí:**
-- **Firma digital**: MetaMask usa tu clave privada para autorizar el despliegue.
-- **Gas**: Necesario para escribir datos en blockchain.
-- **Consenso PoS (Sepolia)**: valida y añade el bloque con tu contrato.
+1. En Remix, haz clic en el ícono de **Solidity Compiler** (panel izquierdo, ícono con el logo de Solidity).
+2. Asegúrate de que el archivo `SimpleStorage.sol` esté abierto.
+4. Clic en **"Compile"**.
+5. Si la compilación es exitosa, en el editor aparece el estimado de gas junto a la función: 22514 gas (como se ve en la línea 8).
+6. Si no hay errores, aparecerá un check verde ✅.
+
+> ⚠️ **Error común:** Si ves un error de versión, verifica que la versión del compilador coincida con `pragma solidity ^0.8.0`.
 
 ---
+### Paso 3.2 — Configurar el entorno de despliegue
+
+1. Haz clic en el ícono de **Deploy & Run Transactions** (ícono de Ethereum).
+2. En Environment haz clic en el desplegable — verás: Remix VM, VM Fork, Dev, Base, WalletConnect, Custom.
+3. Selecciona "WalletConnect" — esta es la opción para conectar MetaMask en la versión 2.1.0 de Remix.
+4. MetaMask abrirá un popup → selecciona tu cuenta → clic en **Conectar**.
+5. Verifica que en Remix aparezca tu dirección de MetaMask y el saldo en Sepolia.
+6. En **Contract** confirma que dice `SimpleStorage`.
+
+---
+### Paso 3.3 — Desplegar el contrato
+
+1. Verifica que en Deploy diga **"Sepolia (11155111) network"**.
+2. Haz clic en el botón azul **"Deploy"**
+3. MetaMask abrirá un popup mostrando **"Implementar un contrato"**:
+   - **Red:** Spolia.
+   - **Tarifa de red:**  en SepoliaETH (sin valor real)
+4. Haz clic en **"Confirmar"**.
+5. Espera ~15–30 segundos. En la consola aparecerá el bloque, hash y dirección del contrato.
+6. En **"Deployed Contracts"** aparecerá SimpleStorage con su dirección y la red Sepolia.
+
+> 🔐 **¿Qué ocurrió en seguridad?**
+> - **Firma digital:** MetaMask usó tu clave privada para firmar el bytecode del contrato. Sin tu firma, nadie más puede desplegar en tu nombre.
+> - **Gas:** La red cobró una comisión para prevenir spam (vector de ataque DoS en blockchain).
+> - **Consenso PoS:** Los validadores de Sepolia verificaron y añadieron el bloque con tu contrato. Sin consenso, no hay despliegue.
+
+
 
 ### 🔹 4. Ejecutar una transacción al contrato
 
