@@ -128,8 +128,8 @@ docker run -it -v $(pwd):/labs ubuntu:22.04 bash
 1️⃣ Elige tu entorno preferido (Linux, WSL, Windows o Docker).  
 2️⃣ Clona este repositorio o descarga los laboratorios:  
 ```bash
-git clone https://github.com/karlozkordova/blockchain-security-labs.git
-cd blockchain-security-labs
+git clone https://github.com/karlozkordova/blockchaintest.git
+cd blockchaintest
 ```
 3️⃣ Sigue el **README.md** de cada laboratorio.  
 4️⃣ Documenta tus resultados con las plantillas incluidas.  
