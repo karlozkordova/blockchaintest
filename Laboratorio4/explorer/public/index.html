@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hardhat · Explorer local</title><link rel="stylesheet" href="/style.css"></head>
+<body><main class="layout">
+<header><div><div class="eyebrow">LABORATORIO ETHEREUM · HARDHAT</div><h1>Explorador Blockchain</h1><p>Monitor local de bloques, cuentas y transacciones.</p></div><div class="right"><span id="status" class="pill">Conectando…</span><button id="refresh">Actualizar</button></div></header>
+<section class="stats"><article><small>Identificador de red</small><strong id="chain">—</strong><span>Chain ID</span></article><article><small>Último bloque</small><strong id="height">—</strong><span>Altura de la cadena</span></article><article><small>Cuentas disponibles</small><strong id="accounts-total">—</strong><span>Cuentas del nodo Hardhat</span></article><article><small>Cliente</small><strong id="client">—</strong><span>Versión del nodo</span></article></section>
+<section class="cols"><div class="panel"><div class="section-head"><div><h2>Bloques recientes</h2><p>Hasta 12 bloques, desde el más reciente</p></div></div><div class="table-scroll"><table><thead><tr><th>Bloque</th><th>Hash</th><th>Tx</th><th>Fecha</th></tr></thead><tbody id="blocks"><tr><td colspan="4">Cargando…</td></tr></tbody></table></div></div><div class="panel"><div class="section-head"><div><h2>Cuentas y saldos</h2><p>Primeras 20 cuentas locales (ETH ficticio)</p></div></div><div class="table-scroll"><table><thead><tr><th>#</th><th>Dirección</th><th>Saldo ETH</th></tr></thead><tbody id="accounts"><tr><td colspan="3">Cargando…</td></tr></tbody></table></div></div></section>
+<section class="panel"><div class="section-head"><div><h2>Buscar transacción</h2><p>Ingresa un hash de transacción (0x + 64 caracteres hexadecimales)</p></div></div><form id="search-form"><input id="hash-input" placeholder="0x…" autocomplete="off" spellcheck="false" aria-label="Hash de transacción"><button type="submit">Consultar</button></form><div id="tx-result" class="details muted">Realiza una transferencia de prueba con PowerShell o tu script para ver su detalle.</div></section>
+<section class="panel" id="merkle-panel">
+ <div class="section-head"><h2>Árbol Merkle Patricia de transacciones</h2><p>Reconstrucción criptográfica de <code>transactionsRoot</code> y pruebas de inclusión. <code>receiptsRoot</code> y <code>stateRoot</code> se consultan, pero no se reconstruyen.</p></div>
+ <form id="merkle-form"><label for="merkle-block" class="form-label">Bloque</label><input id="merkle-block" type="number" min="0" placeholder="Número de bloque (vacío = último)"/><button type="submit">Analizar trie</button></form>
+ <div id="merkle-status" class="details muted">Elige un bloque con transacciones o pulsa Analizar trie para consultar el último.</div>
+ <div id="merkle-roots" class="root-grid"></div>
+ <div id="merkle-txs" class="merkle-txs"></div>
+ <div id="merkle-path" class="merkle-path"></div>
+</section>
+
+
+<section class="panel" id="contract-panel">
+ <div class="section-head"><div><h2>Smart Contracts · Comparación de acceso</h2><p>Contrato desplegado en Hardhat 31337. Lecturas on-chain y fuentes locales diferenciadas.</p></div><button type="button" id="contract-refresh">Actualizar contrato</button></div>
+ <label for="contract-selector"><strong>Seleccionar contrato</strong></label>
+ <select id="contract-selector" style="max-width:100%;padding:9px;margin:8px 0 16px"><option value="seguro">RegistroAcademico — SEGURO (solo propietario)</option><option value="vulnerable">RegistroAcademicoVulnerable — VULNERABLE (cualquier cuenta)</option></select>
+ <p id="contract-status" class="details muted" aria-live="polite">Consultando contrato…</p>
+ <div id="contract-meta" class="contract-grid"></div>
+ <h3>Variables de estado · lectura on-chain</h3><div id="contract-state" class="contract-grid"></div>
+ <h3>Funciones y eventos · ABI local</h3><div id="contract-abi" class="table-scroll"></div>
+ <h3>Eventos MensajeActualizado · últimos 50 en el rango consultado</h3><div id="contract-events" class="table-scroll"></div>
+ <details class="contract-source"><summary>Código Solidity · archivo local, no verificado por el explorador</summary><pre id="contract-source">Cargando fuente local…</pre></details>
+ <p class="contract-note">Lectura de contrato y escritura controlada desde la wallet de laboratorio (sección posterior). La coincidencia de bytecode se basa en el código guardado en deployment.json; no demuestra por sí sola correspondencia del archivo Solidity mostrado. No se exponen claves privadas.</p>
+</section>
+<section class="panel" id="wallet-panel">
+ <div class="section-head"><h2>Wallet de laboratorio · Hardhat local</h2><p>Sin MetaMask. Emplea cuentas de prueba desbloqueadas exclusivamente en Chain ID 31337. No uses fondos reales.</p></div>
+ <div class="wallet-toolbar"><button type="button" id="wallet-refresh">Consultar cuentas</button><span id="wallet-state" role="status" aria-live="polite">Consultando Hardhat…</span></div>
+ <form id="wallet-form" class="wallet-form">
+ <label for="wallet-account">Cuenta que autoriza</label><select id="wallet-account" required></select>
+ <p id="wallet-balance" class="muted">Saldo: —</p>
+ <label for="wallet-message">Nuevo mensaje para el contrato seleccionado</label><input id="wallet-message" maxlength="256" required placeholder="Mensaje académico de prueba" autocomplete="off" />
+ <p class="contract-note">Prueba con cuenta propietaria y no propietaria. El contrato seguro debe revertir la operación ajena; el vulnerable la aceptará. Se pedirá confirmación antes de enviar.</p>
+ <button type="submit" id="wallet-submit">Actualizar contrato</button></form>
+ <div id="wallet-result" class="details muted" aria-live="polite">No se ha enviado ninguna transacción desde este panel.</div>
+</section>
+<section class="panel" id="glosario">
+ <div class="section-head"><div><div class="eyebrow">REFERENCIA DIDÁCTICA</div><h2>Glosario Blockchain y árboles Merkle Patricia</h2><p>Consulta el significado de los campos que aparecen en el explorador. Los ejemplos se refieren a Ethereum y a la red local Hardhat.</p></div></div>
+ <label for="glossary-search" class="glossary-label">Buscar término o sigla</label>
+ <input id="glossary-search" type="search" placeholder="Ej.: receiptsRoot, RLP, proof, gas, nonce…" autocomplete="off" aria-controls="glossary-items">
+ <p id="glossary-count" class="glossary-count" aria-live="polite"></p>
+ <div id="glossary-items" class="glossary-grid">
+ <details class="glossary-item" open><summary>transactionsRoot <span>Raíz de transacciones</span></summary><p>Hash raíz del Merkle Patricia Trie que compromete las transacciones incluidas en un bloque. Las claves se derivan de <code>RLP(índice)</code> y los valores son las transacciones serializadas.</p></details>
+ <details class="glossary-item" open><summary>receiptsRoot <span>Raíz de recibos</span></summary><p>Hash raíz del trie de recibos de ejecución del bloque. Los recibos contienen, entre otros datos, el estado o resultado apropiado al formato, el gas acumulado, los logs y su filtro bloom. No equivale a los saldos.</p></details>
+ <details class="glossary-item" open><summary>stateRoot <span>Raíz del estado global</span></summary><p>Hash raíz del trie que representa el estado completo de Ethereum después de ejecutar el bloque: cuentas, saldos, nonce, hash de código y raíz de almacenamiento de cada cuenta. No incluye únicamente los cambios de ese bloque.</p></details>
+ <details class="glossary-item"><summary>MPT / Trie <span>Merkle Patricia Trie</span></summary><p>Un <em>trie</em> organiza valores por rutas derivadas de sus claves. El Modified Merkle Patricia Trie de Ethereum combina organización por prefijos, compresión de rutas y hashes verificables. No es el árbol binario de Merkle que suele usarse para explicar Bitcoin.</p></details>
+ <details class="glossary-item"><summary>RLP <span>Recursive Length Prefix</span></summary><p>Formato determinista de codificación de secuencias de bytes y listas. Ethereum lo utiliza para representar ciertas estructuras y para construir claves como <code>RLP(índice de transacción)</code>.</p></details>
+ <details class="glossary-item"><summary>Clave RLP <span>Índice codificado, no clave privada</span></summary><p>En el trie de transacciones, es la posición de la transacción dentro del bloque, codificada con RLP: índice 0 → <code>0x80</code>; 1 → <code>0x01</code>; 2 → <code>0x02</code>; 3 → <code>0x03</code>. No firma operaciones ni da acceso a cuentas.</p></details>
+ <details class="glossary-item"><summary>Keccak-256 / Hash <span>Huella criptográfica</span></summary><p>Keccak-256 genera una huella de 32 bytes. Ethereum la emplea para hashes de transacciones, nodos y otros compromisos. Un cambio en los bytes de entrada normalmente cambia el resultado.</p></details>
+ <details class="glossary-item"><summary>Root hash <span>Hash raíz</span></summary><p>Valor que compromete criptográficamente los datos de un trie. Si se reconstruye el trie con los mismos datos y reglas, se obtiene la misma raíz. Para confiar en ella también hay que confiar en el encabezado que la contiene.</p></details>
+ <details class="glossary-item"><summary>Proof / Prueba de inclusión <span>Ruta verificable</span></summary><p>Conjunto de nodos que permite comprobar que una clave y su valor pertenecen a un trie con una raíz dada. La vista de este explorador muestra una ruta de prueba, no el árbol completo.</p></details>
+ <details class="glossary-item"><summary>Nibble <span>Cuatro bits</span></summary><p>La mitad de un byte: un dígito hexadecimal entre 0 y f. Las rutas de los tries Patricia se expresan como secuencias de nibbles.</p></details>
+ <details class="glossary-item"><summary>Branch / Extension / Leaf <span>Tipos de nodos del trie</span></summary><p><strong>Branch:</strong> ramificación con 16 posibles hijos y un valor opcional. <strong>Extension:</strong> comprime un segmento compartido de la ruta. <strong>Leaf:</strong> nodo terminal que asocia el resto de una clave a su valor.</p></details>
+ <details class="glossary-item"><summary>Transaction Index / Hash <span>Posición e identificador</span></summary><p>El índice es la posición de la transacción dentro del bloque, comenzando en cero. El hash identifica los bytes firmados de esa transacción. Son valores diferentes.</p></details>
+ <details class="glossary-item"><summary>Block Hash / parentHash <span>Identidad y enlace del bloque</span></summary><p><code>blockHash</code> identifica el encabezado de un bloque. <code>parentHash</code> apunta al hash del bloque anterior, vinculando los encabezados de la cadena.</p></details>
+ <details class="glossary-item"><summary>Receipt / Logs <span>Recibo y eventos</span></summary><p>Un recibo es el resultado registrado de ejecutar una transacción. Los <em>logs</em> son registros emitidos por contratos, consultables para seguir eventos en la red.</p></details>
+ <details class="glossary-item"><summary>Gas / gasUsed <span>Costo computacional</span></summary><p>Gas es la unidad que mide el trabajo realizado por la EVM. <code>gasUsed</code> refleja cuánto se consumió efectivamente. En Hardhat se utiliza ETH ficticio para las pruebas.</p></details>
+ <details class="glossary-item"><summary>Nonce <span>Contador de cuenta</span></summary><p>En una cuenta externa, cuenta las transacciones enviadas y ayuda a ordenar y evitar reutilizaciones. No debe confundirse con una clave privada.</p></details>
+ <details class="glossary-item"><summary>EVM / ABI <span>Ejecución e interfaz</span></summary><p><strong>EVM:</strong> Ethereum Virtual Machine, ejecuta contratos. <strong>ABI:</strong> Application Binary Interface, describe cómo codificar llamadas a funciones y decodificar resultados y eventos.</p></details>
+ <details class="glossary-item"><summary>JSON-RPC / Chain ID <span>Comunicación e identificación</span></summary><p><strong>JSON-RPC:</strong> protocolo con el que la web y PowerShell consultan el nodo por HTTP. <strong>Chain ID:</strong> identificador de red; Hardhat local usa normalmente <code>31337</code> (<code>0x7a69</code>).</p></details>
+ <details class="glossary-item"><summary>EDR / Automining <span>Simulador de Hardhat</span></summary><p><strong>EDR:</strong> Ethereum Development Runtime, motor de Hardhat. <strong>Automining:</strong> creación automática de bloques al enviar transacciones. Esta red local no ejecuta consenso P2P real.</p></details>
+ </div>
+ <div class="glossary-note"><strong>Para interpretar las pruebas:</strong> que <code>calculatedRoot</code> coincida con <code>transactionsRoot</code> verifica la coherencia de los datos reconstruidos con la raíz del bloque; no demuestra que los datos de una API externa sean verdaderos. En esta versión se reconstruye el trie de transacciones, no los tries de recibos o estado.</div>
+</section>
+
+<footer>Visualizador educativo · Solo lectura · API interna <code>/api/rpc</code> · Se actualiza cada 8 segundos. Al reiniciar Hardhat, su historial en memoria se pierde.</footer>
+</main><script type="module" src="/app.js"></script><script src="/glossary.js" defer></script><script src="/contract.js" defer></script><script src="/wallet.js" defer></script></body></html>

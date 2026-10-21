@@ -1,0 +1,16 @@
+services:
+  explorer:
+    build:
+      context: ./explorer
+    container_name: blockchain-explorer
+    ports:
+      - "127.0.0.1:3000:8080"
+    environment:
+      RPC_URL: http://blockchain:8545
+      PORT: "8080"
+    volumes:
+      - ./scripts:/data/scripts:ro
+      - ./contracts:/data/contracts:ro
+    depends_on:
+      - blockchain
+    restart: unless-stopped

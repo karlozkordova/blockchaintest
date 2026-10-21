@@ -1,0 +1,13 @@
+services:
+  blockchain:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hardhat-blockchain
+    ports:
+      - "127.0.0.1:8545:8545"
+    volumes:
+      - ./scripts:/app/scripts
+      - ./contracts:/app/contracts
+    restart: unless-stopped
+
