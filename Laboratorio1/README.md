@@ -76,19 +76,37 @@ python poc_cifrado_asimetrico.py
 
 ---
 
-### 3. Interfaz Web (Claves Públicas/Privadas)
+## 🖥️ 3. Interfaz Web: Identidad y Firma Digital (Claves Públicas/Privadas)
 
 Abre en el navegador el archivo:
 
-```bash
+```
 keypubpriv.html
 ```
 
-Podrás interactuar con el flujo de:  
-- **Cifrado con clave pública → Descifrado con clave privada**  
-- **Firma digital con clave privada → Verificación con clave pública**
+> ⚠️ Esta interfaz **no cifra mensajes**: demuestra **identidad y firma digital** 
 
----
+### 🔄 Flujo a ejecutar
+
+| Paso | Botón | Qué ocurre |
+|---|---|---|
+| 1 | Generar identidad | Se crea una clave privada aleatoria → se deriva la clave pública (curva **secp256k1**) → se obtiene la **dirección** (últimos 20 bytes del hash **Keccak-256** de la clave pública) |
+| 2 | Firmar con clave privada | Al mensaje se le antepone el prefijo **EIP-191**, se calcula su hash **Keccak-256** y se firma con **ECDSA secp256k1** (firma de 65 bytes: r, s, v) |
+| 3 | Verificar firma | A partir del mensaje y la firma se **recupera la dirección del firmante** (equivalente a `ecrecover`) y se compara con la dirección generada |
+
+### 🧪 Prueba de integridad (obligatoria)
+
+1. Firma un mensaje y verifica: el resultado debe ser **✔️ Válido**.
+2. Modifica **un solo carácter** del mensaje **sin volver a firmar** y presiona *Verificar*.
+3. Registra la dirección recuperada y el resultado (**❌ Inválido**). Explica por qué ocurre.
+
+### 📸 Evidencias requeridas
+
+- Captura de la dirección, la clave pública y la firma generada.
+- Captura de la verificación válida y de la inválida (tras modificar el mensaje).
+
+> 🔐 La clave privada se muestra en pantalla **solo con fines didácticos**. En un entorno real, nunca debe exponerse.
+
 
 ## 📊 Interpretación de Resultados
 
